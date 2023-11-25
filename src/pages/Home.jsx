@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { Space } from "../models/Space";
+import { Space } from "../models/Space.jsx";
 import './page.css'
 
 const Home = () => {
