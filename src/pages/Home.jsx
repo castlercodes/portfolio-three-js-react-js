@@ -10,7 +10,7 @@ const Home = () => {
         <directionalLight position={[1, 1, 1]} intensity={2} />
         <ambientLight intensity={0.5} />
 
-        <Space position={[0, 0, 0]} />
+        <Space position={[0, -1, 0]} />
       </Canvas>
     </section>
   );
