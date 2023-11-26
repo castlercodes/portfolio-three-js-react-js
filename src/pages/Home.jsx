@@ -35,6 +35,21 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("pointerdown", handlePointerDown);
+  }, [])
+
+  const handlePointerDown = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    // const x_coordinate = event.touches ? event.touches[0].clientX : event.clientX;
+    // const y_coordinate = event.touches ? event.touches[0].clientY : event.clientY;
+    
+    // setPosition((prev) => ({...prev, x: x_coordinate, y: y_coordinate}))
+
+  };
+
   const handleNavigation = (direction) => {
     switch (direction) {
       case "up":
