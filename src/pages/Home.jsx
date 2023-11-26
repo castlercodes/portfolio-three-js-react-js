@@ -5,11 +5,13 @@ import './page.css'
 import { Stylized_Planet } from "../models/Stylized_Planet.jsx";
 import { Raycaster } from "three";
 import spacesound1 from "../assets/music/a-space-journey-through-the-solar-system-153272.mp3"
+import { Navigation } from "../models/Navigation.jsx";
 
 const Home = () => {
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const raycaster = new Raycaster();
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
+  const [position, setPosition] = useState({x:0, y:0, z:0});
 
   const spacesound1Ref = useRef(new Audio(spacesound1));
   spacesound1Ref.current.volume = 0.6;
@@ -32,6 +34,31 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleNavigation = (direction) => {
+    switch (direction) {
+      case "up":
+        setPosition((prev) => ({ ...prev, y: prev.y + 1 }));
+        break;
+      case "down":
+        setPosition((prev) => ({ ...prev, y: prev.y - 1 }));
+        break;
+      case "left":
+        setPosition((prev) => ({ ...prev, x: prev.x - 1 }));
+        break;
+      case "right":
+        setPosition((prev) => ({ ...prev, x: prev.x + 1 }));
+        break;
+      case "forward":
+        setPosition((prev) => ({ ...prev, z: prev.z - 1 }));
+        break;
+      case "backward":
+        setPosition((prev) => ({ ...prev, z: prev.z + 1 }));
+        break;
+      default:
+        break;
+    }
+  };
 
   const adjustStylizedPlanetForScreenSize = () => {
     let screenScale, screenPosition;
@@ -91,7 +118,16 @@ const Home = () => {
 
         <Space position={biSpacePosition} scale={biSpaceScale}/>
         <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
+        <Navigation x={position.x} y={position.y} z={position.z}/>
       </Canvas>
+      <div className="navigation-buttons">
+        <button onClick={() => handleNavigation("up")}>Up</button>
+        <button onClick={() => handleNavigation("down")}>Down</button>
+        <button onClick={() => handleNavigation("left")}>Left</button>
+        <button onClick={() => handleNavigation("right")}>Right</button>
+        <button onClick={() => handleNavigation("forward")}>Forward</button>
+        <button onClick={() => handleNavigation("backward")}>Backward</button>
+      </div>
     </section>
   );
 };
