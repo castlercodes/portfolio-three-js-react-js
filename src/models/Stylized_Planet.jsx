@@ -10,11 +10,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import planet from "../assets/3d/stylized_planet.glb"
 import { useFrame, useThree } from "@react-three/fiber";
+import { Vector3 } from "three"; // Import Vector3 from three library
 
 export function Stylized_Planet(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(planet);
   const { actions } = useAnimations(animations, group);
+
+  useFrame(({ clock, camera}) => {
+    // Update the planet's position in the animation loop
+    group.current.rotation.y += 0.01
+
+    // const cameraTarget = new Vector3(0, props.position[1], 0);
+    // const cameraPosition = new Vector3().copy(newPosition).add(new Vector3(0, 0, 8));
+
+    // camera.position.lerp(cameraPosition, 0.05);
+    // camera.lookAt(cameraTarget);
+  });
 
   return (
     <group ref={group} {...props} dispose={null}>

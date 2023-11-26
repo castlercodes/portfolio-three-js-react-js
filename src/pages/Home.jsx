@@ -12,6 +12,7 @@ const Home = () => {
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
 
   const spacesound1Ref = useRef(new Audio(spacesound1));
+  spacesound1Ref.current.volume = 0.6;
   spacesound1Ref.current.loop = true;
 
   useEffect(() => {
@@ -35,12 +36,41 @@ const Home = () => {
   const adjustStylizedPlanetForScreenSize = () => {
     let screenScale, screenPosition;
 
-    if (canvasSize.width < 1200) {
-      screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [canvasSize.width / 300, 5, -8];
+    if(canvasSize.width < 440){
+      screenScale = [0.8, 1, 0.8];
+      screenPosition = [7, 8, -20];
+    }
+    else if(canvasSize.width < 700){
+      screenScale = [0.8, 1, 0.8];
+      screenPosition = [12, 8, -20];
+    }
+    else if (canvasSize.width < 1200) {
+      screenScale = [0.8, 1, 0.8];
+      screenPosition = [15, 8, -20];
     } else {
       screenScale = [0.8, 1, 0.8];
-      screenPosition = [5, 2, -4];
+      screenPosition = [20, 8, -20];
+    }
+
+    return [screenScale, screenPosition];
+  };
+
+  const adjustSpaceForScreenSize = () => {
+    let screenScale, screenPosition;
+    if(canvasSize.width < 400){
+      screenScale = [0.6, 0.7, 0.7];
+      screenPosition = [0, -1, 0];
+    }
+    else if(canvasSize.width < 700){
+      screenScale = [0.6, 0.7, 0.7];
+      screenPosition = [0, -1, 0];
+    }
+    else if (canvasSize.width < 1200) {
+      screenScale = [0.9, 0.9, 0.9];
+      screenPosition = [0, -1, 0];
+    } else {
+      screenScale = [1, 1, 1];
+      screenPosition = [0, -1, 0];
     }
 
     return [screenScale, screenPosition];
@@ -51,6 +81,7 @@ const Home = () => {
   }
 
   const [biStylizedPlanetScale, biStylizedPlanetPosition] = adjustStylizedPlanetForScreenSize();
+  const [biSpaceScale, biSpacePosition] = adjustSpaceForScreenSize();
 
   return (
     <section className="home">
@@ -58,7 +89,7 @@ const Home = () => {
         <directionalLight position={[1, 1, 1]} intensity={2} />
         <ambientLight intensity={0.5} />
 
-        <Space position={[0, -1, 0]} />
+        <Space position={biSpacePosition} scale={biSpaceScale}/>
         <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
       </Canvas>
     </section>
