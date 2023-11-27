@@ -13,14 +13,14 @@ import { useFrame } from "@react-three/fiber";
 
 export function Space(props) {
   const { nodes, materials } = useGLTF(space);
-  const spaceRef = useRef();
+  const group = useRef();
 
   useFrame(() => {
-    spaceRef.current.rotation.y += 0.005;
+    group.current.rotation.set(0.2, 3.65, 0);
   })
 
   return (
-    <group ref={spaceRef} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}>
       <points
         geometry={nodes.Object_2.geometry}
         material={materials["Scene_-_Root"]}

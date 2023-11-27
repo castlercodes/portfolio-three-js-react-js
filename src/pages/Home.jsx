@@ -9,6 +9,8 @@ import { Navigation } from "../models/Navigation.jsx";
 import { Text } from "@react-three/drei";
 import Contact from "../Components/Contact.jsx";
 import Loader from "../Components/Loader.jsx";
+import { Sun } from "../models/Sun.jsx";
+import { Meteor } from "../models/Meteor.jsx";
 
 const Home = () => {
   let textwidthsize = 20
@@ -24,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     if(isPlayingspacesound1){
-      spacesound1Ref.current.play();
+      // spacesound1Ref.current.play();
     }
   }, [isPlayingspacesound1])
 
@@ -109,6 +111,28 @@ const Home = () => {
     return [screenScale, screenPosition];
   };
 
+  const adjustSunForScreenSize = () => {
+    let screenScale, screenPosition;
+
+    if(canvasSize.width < 440){
+      screenScale = [0.1, 0.1, 0.1];
+      screenPosition = [-13, 6, -20];
+    }
+    else if(canvasSize.width < 700){
+      screenScale = [0.1, 0.1, 0.1];
+      screenPosition = [-18, 6, -20];
+    }
+    else if (canvasSize.width < 1200) {
+      screenScale = [0.1, 0.1, 0.1];
+      screenPosition = [-23, 6, -20];
+    } else {
+      screenScale = [0.2, 0.2, 0.2];
+      screenPosition = [-30, 6, -20];
+    }
+
+    return [screenScale, screenPosition];
+  };
+
   const adjustSpaceForScreenSize = () => {
     let screenScale, screenPosition;
     if(canvasSize.width < 400){
@@ -140,11 +164,16 @@ const Home = () => {
     setPosition({x : biStylizedPlanetPosition[0], y : biStylizedPlanetPosition[1], z : biStylizedPlanetPosition[2]})
   }
 
+  const handleClickSun = (e) => {
+    setPosition({x : biSunPosition[0], y : biSunPosition[1], z : biSunPosition[2]})
+  }
+
   const handleClickSpace = (e) => {
     setPosition({x : biSpacePosition[0], y : biSpacePosition[1], z : biSpacePosition[2]})
   }
 
   const [biStylizedPlanetScale, biStylizedPlanetPosition] = adjustStylizedPlanetForScreenSize();
+  const [biSunScale, biSunPosition] = adjustSunForScreenSize();
   const [biSpaceScale, biSpacePosition] = adjustSpaceForScreenSize();
 
   return (
@@ -155,7 +184,10 @@ const Home = () => {
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
 
-          <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group>
+          {/* <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group> */}
+          <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
+          <Space />
+          <Meteor scale={[0.3, 0.3, 0.3]}/>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
           <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
