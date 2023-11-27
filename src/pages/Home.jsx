@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Space } from "../models/Space.jsx";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import './page.css'
 import { Stylized_Planet } from "../models/Stylized_Planet.jsx";
 import { Raycaster } from "three";
@@ -19,6 +20,7 @@ const Home = () => {
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
   const [position, setPosition] = useState({x:0, y:0, z:0});
   const [popupCard, setPopupCard] = useState("");
+  const [navigateButtons, setNavigateButtons] = useState(false);
   const spacesound1Ref = useRef(new Audio(spacesound1));
   spacesound1Ref.current.volume = 0.6;
   spacesound1Ref.current.loop = true;
@@ -136,7 +138,7 @@ const Home = () => {
     let screenScale, screenPosition;
 
     if(canvasSize.width < 440){
-      screenScale = [0.05, 0.05, 0.05];
+      screenScale = [0.1, 0.1, 0.1];
       screenPosition = [-6, 6, -20];
     }
     else if(canvasSize.width < 700){
@@ -144,7 +146,7 @@ const Home = () => {
       screenPosition = [-8, 6, -20];
     }
     else if (canvasSize.width < 1200) {
-      screenScale = [0.05, 0.05, 0.05];
+      screenScale = [0.1, 0.1, 0.1];
       screenPosition = [-15, 6, -20];
     } else {
       screenScale = [0.1, 0.1, 0.1];
@@ -208,14 +210,28 @@ const Home = () => {
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
-          <Space position={biSpacePosition}/>
+          {/* <Space position={biSpacePosition}/> */}
           <Meteor scale={[0.3, 0.3, 0.3]}/>
           <group onClick={handleClickMercury}><Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/></group>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
           </Suspense>
       </Canvas>
+      {navigateButtons == false
+      &&
+      <div className="navigatebutton hidenavigatebutton" onClick={() => {
+        setNavigateButtons(true)
+      }}>
+        <FaChevronUp />
+        <div>Show Navigate Buttons</div>
+      </div>
+      }
+      {navigateButtons == true
+      &&
       <div className="navigation-buttons">
+        <FaChevronDown className="navigatebutton" color="white"  onClick={() => {
+          setNavigateButtons(false);
+        }}/>
         <button className="button" onClick={() => handleNavigation("down")}>Up</button>
         <div className="horizontal-buttons">
           <button className="button leftright" onClick={() => handleNavigation("right")}>Left</button>
@@ -226,6 +242,7 @@ const Home = () => {
         </div>
         <button className="button" onClick={() => handleNavigation("up")}>Down</button>
       </div>
+      }
     </section>
   );
 };

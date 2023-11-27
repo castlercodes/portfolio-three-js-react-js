@@ -9,11 +9,18 @@ Title: Realistic Jupiter
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import mercury from "../assets/3d/realistic_jupiter.glb"
+import { useFrame } from "@react-three/fiber";
 
 export function Mercury(props) {
   const { nodes, materials } = useGLTF(mercury);
+  const group = useRef();
+
+  useFrame(() => {
+    group.current.rotation.y += 0.01;
+  })
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
           <mesh
