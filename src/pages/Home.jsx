@@ -9,14 +9,16 @@ import { Navigation } from "../models/Navigation.jsx";
 import { Text } from "@react-three/drei";
 import { Space_Ship } from "../models/Space_Ship.jsx";
 import { Meteor } from "../models/Meteor.jsx";
+import PopupCard from "../Components/PopupCard.jsx";
 
 const Home = () => {
   let textwidthsize = 20
+  let textfontsize = 1;
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const raycaster = new Raycaster();
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
   const [position, setPosition] = useState({x:0, y:0, z:0});
-
+  const [popupCard, setPopupCard] = useState("");
   const spacesound1Ref = useRef(new Audio(spacesound1));
   spacesound1Ref.current.volume = 0.6;
   spacesound1Ref.current.loop = true;
@@ -47,12 +49,11 @@ const Home = () => {
       Math.abs(position.z - biStylizedPlanetPosition[2]) <= 5
     );
 
-    console.log(Math.abs(position.x - biStylizedPlanetPosition[0]))
-    console.log(Math.abs(position.y - biStylizedPlanetPosition[1]))
-    console.log(Math.abs(position.z - biStylizedPlanetPosition[2]))
-
     if (isNearPlanet) {
-      console.log("you have reached near planet")
+      setPopupCard("Contact Me")
+    }
+    else{
+      setPopupCard("")
     }
   
   }, [position]);
@@ -109,28 +110,35 @@ const Home = () => {
     let screenScale, screenPosition;
     if(canvasSize.width < 400){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [0, -1, 0];
-      textwidthsize = 0.8
+      screenPosition = [-3, -5, -8];
+      textwidthsize = 10
+      textfontsize = 0.5
     }
     else if(canvasSize.width < 700){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [0, -1, 0];
-      textwidthsize = 1
+      screenPosition = [-8, -5, -8];
+      textwidthsize = 10
+      textfontsize = 0.6
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [0, -1, 0];
+      screenPosition = [-10, -5, -10];
       textwidthsize = 10
+      textfontsize = 1;
     } else {
       screenScale = [1, 1, 1];
-      screenPosition = [0, -1, 0];
+      screenPosition = [-15, -5, -10];
     }
 
     return [screenScale, screenPosition];
   };
 
-  const handleClickStylizedPlanet = () => {
+  const handleClickStylizedPlanet = (e) => {
+    setPosition({x : biStylizedPlanetPosition[0], y : biStylizedPlanetPosition[1], z : biStylizedPlanetPosition[2]})
+  }
 
+  const handleClickSpace = (e) => {
+    setPosition({x : biSpacePosition[0], y : biSpacePosition[1], z : biSpacePosition[2]})
   }
 
   const [biStylizedPlanetScale, biStylizedPlanetPosition] = adjustStylizedPlanetForScreenSize();
@@ -138,16 +146,17 @@ const Home = () => {
 
   return (
     <section className="home">
+      {popupCard == "Contact Me" && <PopupCard text={"Contact Me"} />}
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <directionalLight position={[1, 1, 1]} intensity={2} />
         <ambientLight intensity={10} />
 
-        <Space position={biSpacePosition} scale={biSpaceScale}/>
+        <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group>
         <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
         {/* <Space_Ship scale={[0.2, 0.2, 0.2]}/> */}
         <Meteor scale={[0.2, 0.2, 0.2]}/>
         <Navigation x={position.x} y={position.y} z={position.z}/>
-        <Text position={[0, 0, -2]} fontSize={1} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
+        <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
           Jeevan Alexen Kavalam
         </Text>
       </Canvas>
