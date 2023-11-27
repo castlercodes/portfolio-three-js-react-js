@@ -6,8 +6,12 @@ import { Stylized_Planet } from "../models/Stylized_Planet.jsx";
 import { Raycaster } from "three";
 import spacesound1 from "../assets/music/a-space-journey-through-the-solar-system-153272.mp3"
 import { Navigation } from "../models/Navigation.jsx";
+import { Text } from "@react-three/drei";
+import { Space_Ship } from "../models/Space_Ship.jsx";
+import { Meteor } from "../models/Meteor.jsx";
 
 const Home = () => {
+  let textwidthsize = 20
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const raycaster = new Raycaster();
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
@@ -36,19 +40,23 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("pointerdown", handlePointerDown);
-  }, [])
+    // Check if the user's position is close to the planet's position
+    const isNearPlanet = (
+      Math.abs(position.x - biStylizedPlanetPosition[0]) <= 1 &&
+      Math.abs(position.y - biStylizedPlanetPosition[1]) <= 1 &&
+      Math.abs(position.z - biStylizedPlanetPosition[2]) <= 5
+    );
 
-  const handlePointerDown = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    
-    // const x_coordinate = event.touches ? event.touches[0].clientX : event.clientX;
-    // const y_coordinate = event.touches ? event.touches[0].clientY : event.clientY;
-    
-    // setPosition((prev) => ({...prev, x: x_coordinate, y: y_coordinate}))
+    console.log(Math.abs(position.x - biStylizedPlanetPosition[0]))
+    console.log(Math.abs(position.y - biStylizedPlanetPosition[1]))
+    console.log(Math.abs(position.z - biStylizedPlanetPosition[2]))
 
-  };
+    if (isNearPlanet) {
+      console.log("you have reached near planet")
+    }
+  
+  }, [position]);
+
 
   const handleNavigation = (direction) => {
     switch (direction) {
@@ -79,18 +87,18 @@ const Home = () => {
     let screenScale, screenPosition;
 
     if(canvasSize.width < 440){
-      screenScale = [0.8, 1, 0.8];
+      screenScale = [1, 1, 1];
       screenPosition = [7, 8, -20];
     }
     else if(canvasSize.width < 700){
-      screenScale = [0.8, 1, 0.8];
+      screenScale = [1, 1, 1];
       screenPosition = [12, 8, -20];
     }
     else if (canvasSize.width < 1200) {
-      screenScale = [0.8, 1, 0.8];
+      screenScale = [1, 1, 1];
       screenPosition = [15, 8, -20];
     } else {
-      screenScale = [0.8, 1, 0.8];
+      screenScale = [1, 1, 1];
       screenPosition = [20, 8, -20];
     }
 
@@ -102,14 +110,17 @@ const Home = () => {
     if(canvasSize.width < 400){
       screenScale = [0.6, 0.7, 0.7];
       screenPosition = [0, -1, 0];
+      textwidthsize = 0.8
     }
     else if(canvasSize.width < 700){
       screenScale = [0.6, 0.7, 0.7];
       screenPosition = [0, -1, 0];
+      textwidthsize = 1
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.9, 0.9, 0.9];
       screenPosition = [0, -1, 0];
+      textwidthsize = 10
     } else {
       screenScale = [1, 1, 1];
       screenPosition = [0, -1, 0];
@@ -129,11 +140,16 @@ const Home = () => {
     <section className="home">
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <directionalLight position={[1, 1, 1]} intensity={2} />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={10} />
 
         <Space position={biSpacePosition} scale={biSpaceScale}/>
         <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
+        {/* <Space_Ship scale={[0.2, 0.2, 0.2]}/> */}
+        <Meteor scale={[0.2, 0.2, 0.2]}/>
         <Navigation x={position.x} y={position.y} z={position.z}/>
+        <Text position={[0, 0, -2]} fontSize={1} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
+          Jeevan Alexen Kavalam
+        </Text>
       </Canvas>
       <div className="navigation-buttons">
         <button onClick={() => handleNavigation("up")}>Up</button>
