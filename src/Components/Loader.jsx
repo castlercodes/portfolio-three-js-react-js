@@ -1,18 +1,23 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRocket } from '@fortawesome/free-solid-svg-icons';
+import { MutatingDots} from 'react-loader-spinner'
 import './Loader.css';
 import { Html } from "@react-three/drei";
 
 const Loader = () => {
   return (
-    <Html>
-        <div className="loader-container">
-        <div className="loader">
-            <FontAwesomeIcon icon={faRocket} className="rocket-icon" />
-            <div className="orbit" />
-        </div>
-        </div>
+    <Html className='loader'>
+        <div>Loading 3D Objects</div>
+        <MutatingDots
+            height="100"
+            width="100"
+            color="white"
+            secondaryColor= 'white'
+            radius='12.5'
+            ariaLabel="mutating-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            />
     </Html>
   );
 };

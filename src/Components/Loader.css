@@ -10,30 +10,12 @@
     width: 100px;
     height: 100px;
   }
-  
-  .rocket-icon {
+.loader{
+    position: absolute;
     font-size: 40px;
-    color: #3498db;
-    top: 50%; /* Align the rocket icon in the middle of the loader */
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .orbit {
-    width: 100%;
-    height: 100%;
-    border: 2px solid #3498db;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
-    top: 50%; /* Align the top of the orbit with the rocket icon */
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
+    color: white;
+    left: 20%;
+    top: 30%;
+    width: 500px;
+}
+
