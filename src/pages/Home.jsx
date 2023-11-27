@@ -116,15 +116,15 @@ const Home = () => {
 
     if(canvasSize.width < 440){
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-13, 6, -20];
+      screenPosition = [-6, 6, -20];
     }
     else if(canvasSize.width < 700){
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-18, 6, -20];
+      screenPosition = [-8, 6, -20];
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-23, 6, -20];
+      screenPosition = [-20, 6, -20];
     } else {
       screenScale = [0.2, 0.2, 0.2];
       screenPosition = [-30, 6, -20];
@@ -137,24 +137,24 @@ const Home = () => {
     let screenScale, screenPosition;
     if(canvasSize.width < 400){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [-3, -5, -8];
-      textwidthsize = 10
+      screenPosition = [0, -2, -4];
+      textwidthsize = 4
       textfontsize = 0.5
     }
     else if(canvasSize.width < 700){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [-8, -5, -8];
+      screenPosition = [0, -2, -4];
       textwidthsize = 10
       textfontsize = 0.6
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [-10, -5, -10];
+      screenPosition = [0, 0, 0];
       textwidthsize = 10
       textfontsize = 1;
     } else {
       screenScale = [1, 1, 1];
-      screenPosition = [-15, -5, -10];
+      screenPosition = [0, 0, 0];
     }
 
     return [screenScale, screenPosition];
@@ -186,7 +186,7 @@ const Home = () => {
 
           {/* <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group> */}
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
-          <Space />
+          <Space position={biSpacePosition}/>
           <Meteor scale={[0.3, 0.3, 0.3]}/>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
@@ -199,10 +199,10 @@ const Home = () => {
         <button className="button" onClick={() => handleNavigation("down")}>Up</button>
         <div className="horizontal-buttons">
           <button className="button leftright" onClick={() => handleNavigation("right")}>Left</button>
-          <button className="button forbac" onClick={() => handleNavigation("forward")}>Forward</button>
+          <button className="button forback" onClick={() => handleNavigation("forward")}>Forward</button>
           <button className="button reset-button" onClick={resetPosition}>Reset</button>
-          <button className="button leftright" onClick={() => handleNavigation("backward")}>Backward</button>
-          <button className="button forbac" onClick={() => handleNavigation("left")}>Right</button>
+          <button className="button forback" onClick={() => handleNavigation("backward")}>Backward</button>
+          <button className="button leftright" onClick={() => handleNavigation("left")}>Right</button>
         </div>
         <button className="button" onClick={() => handleNavigation("up")}>Down</button>
       </div>
