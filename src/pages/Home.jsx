@@ -201,13 +201,18 @@ const Home = () => {
   return (
     <section className="home">
       {popupCard == "Contact Me" && <Contact />}
-      <div className="topintro">
-        <div className="intro">Jeevan Alexen's Portfolio</div>
-        {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
+      {popupCard == "" 
+      && 
+      <div>
+        <div className="topintro">
+          <div className="intro">Jeevan Alexen's Portfolio</div>
+          {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
+        </div>
+        <div className="pagedesc">
+          <div>Find More About ME by clicking on the planets</div>
+        </div>
       </div>
-      <div className="pagedesc">
-        <div>Find More About ME by clicking on the planets</div>
-      </div>
+      }
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />

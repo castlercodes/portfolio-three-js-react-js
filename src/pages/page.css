@@ -13,7 +13,7 @@
 .topintro{
     position: absolute;
     top: 10%;
-    left: 10%;
+    left: 8%;
     color: white;
     font-family: 'Ephesis';
     font-weight: bold;
@@ -24,7 +24,7 @@
 }
 
 .intro{
-    font-size: 2rem;
+    font-size: 6rem;
 }
 
 .pagedesc{
@@ -33,10 +33,35 @@
     gap: 10px;
     position: absolute;
     color: white;
-    top: 20%;
+    top: 30%;
     left: 11%;
     font-size: 1rem;
     font-family: 'Work Sans';
+}
+
+@media (max-width: 700px) {
+    .intro {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .intro {
+        font-size: 4rem;
+    }
+    .pagedesc{
+        top: 35%;
+    }
+}
+
+@media (max-width: 400px) {
+    .intro {
+        font-size: 4rem;
+    }
+
+    .pagedesc{
+        top: 35%;
+    }
 }
 
 canvas{
