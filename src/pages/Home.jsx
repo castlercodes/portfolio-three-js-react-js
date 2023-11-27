@@ -7,9 +7,7 @@ import { Raycaster } from "three";
 import spacesound1 from "../assets/music/a-space-journey-through-the-solar-system-153272.mp3"
 import { Navigation } from "../models/Navigation.jsx";
 import { Text } from "@react-three/drei";
-import { Space_Ship } from "../models/Space_Ship.jsx";
 import { Meteor } from "../models/Meteor.jsx";
-import PopupCard from "../Components/PopupCard.jsx";
 import Contact from "../Components/Contact.jsx";
 import Loader from "../Components/Loader.jsx";
 
