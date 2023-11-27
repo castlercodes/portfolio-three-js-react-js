@@ -183,6 +183,10 @@ const Home = () => {
     setPosition({x : biSunPosition[0], y : biSunPosition[1], z : biSunPosition[2]})
   }
 
+  const handleClickMercury = (e) => {
+    setPosition({x : biMercuryPosition[0], y : biMercuryPosition[1], z : biMercuryPosition[2]})
+  }
+
   const handleClickSpace = (e) => {
     setPosition({x : biSpacePosition[0], y : biSpacePosition[1], z : biSpacePosition[2]})
   }
@@ -206,7 +210,7 @@ const Home = () => {
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
           <Space position={biSpacePosition}/>
           <Meteor scale={[0.3, 0.3, 0.3]}/>
-          <Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/>
+          <group onClick={handleClickMercury}><Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/></group>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
           </Suspense>
