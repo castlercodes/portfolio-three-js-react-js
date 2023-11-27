@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Space } from "../models/Space.jsx";
 import './page.css'
@@ -11,6 +11,7 @@ import { Space_Ship } from "../models/Space_Ship.jsx";
 import { Meteor } from "../models/Meteor.jsx";
 import PopupCard from "../Components/PopupCard.jsx";
 import Contact from "../Components/Contact.jsx";
+import Loader from "../Components/Loader.jsx";
 
 const Home = () => {
   let textwidthsize = 20
@@ -153,28 +154,30 @@ const Home = () => {
     <section className="home">
       {popupCard == "Contact Me" && <Contact />}
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
-        <directionalLight position={[1, 1, 1]} intensity={2} />
-        <ambientLight intensity={10} />
+        <Suspense fallback={<Loader />}>
+          <directionalLight position={[1, 1, 1]} intensity={2} />
+          <ambientLight intensity={10} />
 
-        <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group>
-        <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
-        {/* <Space_Ship scale={[0.2, 0.2, 0.2]}/> */}
-        <Meteor scale={[0.2, 0.2, 0.2]}/>
-        <Navigation x={position.x} y={position.y} z={position.z}/>
-        <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
-          Jeevan Alexen Kavalam
-        </Text>
+          <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group>
+          <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
+          {/* <Space_Ship scale={[0.2, 0.2, 0.2]}/> */}
+          <Meteor scale={[0.2, 0.2, 0.2]}/>
+          <Navigation x={position.x} y={position.y} z={position.z}/>
+          <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
+            Jeevan Alexen Kavalam
+          </Text>
+          </Suspense>
       </Canvas>
       <div className="navigation-buttons">
-        <button className="button" onClick={() => handleNavigation("up")}>Up</button>
+        <button className="button" onClick={() => handleNavigation("down")}>Up</button>
         <div className="horizontal-buttons">
-          <button className="button leftright" onClick={() => handleNavigation("left")}>Left</button>
+          <button className="button leftright" onClick={() => handleNavigation("right")}>Left</button>
           <button className="button forbac" onClick={() => handleNavigation("forward")}>Forward</button>
           <button className="button reset-button" onClick={resetPosition}>Reset</button>
           <button className="button leftright" onClick={() => handleNavigation("backward")}>Backward</button>
-          <button className="button forbac" onClick={() => handleNavigation("right")}>Right</button>
+          <button className="button forbac" onClick={() => handleNavigation("left")}>Right</button>
         </div>
-        <button className="button" onClick={() => handleNavigation("down")}>Down</button>
+        <button className="button" onClick={() => handleNavigation("up")}>Down</button>
       </div>
     </section>
   );
