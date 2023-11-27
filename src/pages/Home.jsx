@@ -139,18 +139,18 @@ const Home = () => {
 
     if(canvasSize.width < 440){
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-6, 6, -20];
+      screenPosition = [6, 0, -20];
     }
     else if(canvasSize.width < 700){
-      screenScale = [0.05, 0.05, 0.05];
-      screenPosition = [-8, 6, -20];
+      screenScale = [0.1, 0.1, 0.1];
+      screenPosition = [8, 0, -20];
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-15, 6, -20];
+      screenPosition = [15, 0, -20];
     } else {
       screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-25, 6, -20];
+      screenPosition = [25, 0, -20];
     }
 
     return [screenScale, screenPosition];
@@ -204,6 +204,9 @@ const Home = () => {
       <div className="topintro">
         <div className="intro">Jeevan Alexen's Portfolio</div>
         {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
+      </div>
+      <div className="pagedesc">
+        <div>Find More About ME by clicking on the planets</div>
       </div>
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <Suspense fallback={<Loader />}>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
 .home{
     position: relative;
@@ -24,6 +25,18 @@
 
 .intro{
     font-size: 2rem;
+}
+
+.pagedesc{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    color: white;
+    top: 20%;
+    left: 11%;
+    font-size: 1rem;
+    font-family: 'Work Sans';
 }
 
 canvas{
@@ -86,17 +99,19 @@ canvas{
     background-color: #c0392b;
 }
   
-.hidenavigatebutton{
+.hidenavigatebutton {
     display: flex;
     flex-direction: column;
     position: absolute;
     color: white;
-    bottom: 5%;
-    left: 40%;
+    bottom: 10px; /* Adjusted bottom value */
+    left: 50%; /* Centered horizontally */
+    transform: translateX(-50%); /* Centered horizontally */
     justify-content: center;
     align-items: center;
-    gap: 10px
-}
+    gap: 10px;
+  }
+  
 
 .navigatebutton{
     cursor: pointer;
