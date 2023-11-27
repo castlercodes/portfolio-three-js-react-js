@@ -219,11 +219,14 @@ const Home = () => {
       </Canvas>
       {navigateButtons == false
       &&
-      <div className="navigatebutton hidenavigatebutton" onClick={() => {
-        setNavigateButtons(true)
-      }}>
-        <FaChevronUp />
-        <div>Show Navigate Buttons</div>
+      <div className="navigatebutton hidenavigatebutton">
+        <div className="innernavigate"onClick={() => {
+          setNavigateButtons(true)
+        }}>
+          <FaChevronUp />
+          <div className="navigatetext">Show Navigate Buttons</div>
+        </div>
+        <button className="button reset-button hidereset" onClick={resetPosition}>Reset</button>
       </div>
       }
       {navigateButtons == true

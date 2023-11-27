@@ -95,8 +95,30 @@ canvas{
     left: 40%;
     justify-content: center;
     align-items: center;
+    gap: 10px
 }
 
 .navigatebutton{
     cursor: pointer;
+}
+
+.innernavigate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigatetext{
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.navigatetext:hover{
+    background-color: #2980b9;
+}
+
+.hidereset{
+    padding: 6px;
 }
