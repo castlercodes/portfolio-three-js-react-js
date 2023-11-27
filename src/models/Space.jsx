@@ -16,7 +16,7 @@ export function Space(props) {
   const group = useRef();
 
   useFrame(() => {
-    group.current.rotation.set(0.2, 3.65, 0);
+    group.current.rotation.y += 0.01
   })
 
   return (

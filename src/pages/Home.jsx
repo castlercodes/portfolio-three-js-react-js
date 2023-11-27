@@ -11,10 +11,9 @@ import Contact from "../Components/Contact.jsx";
 import Loader from "../Components/Loader.jsx";
 import { Sun } from "../models/Sun.jsx";
 import { Meteor } from "../models/Meteor.jsx";
+import { Mercury } from "../models/Mercury.jsx";
 
 const Home = () => {
-  let textwidthsize = 20
-  let textfontsize = 1;
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const raycaster = new Raycaster();
   const [isPlayingspacesound1, setIsPlayingspacesound1] = useState(true);
@@ -94,11 +93,11 @@ const Home = () => {
 
     if(canvasSize.width < 440){
       screenScale = [1, 1, 1];
-      screenPosition = [7, 8, -20];
+      screenPosition = [5, 8, -20];
     }
     else if(canvasSize.width < 700){
       screenScale = [1, 1, 1];
-      screenPosition = [12, 8, -20];
+      screenPosition = [10, 8, -20];
     }
     else if (canvasSize.width < 1200) {
       screenScale = [1, 1, 1];
@@ -111,23 +110,45 @@ const Home = () => {
     return [screenScale, screenPosition];
   };
 
+  const adjustMercuryForScreenSize = () => {
+    let screenScale, screenPosition;
+
+    if(canvasSize.width < 440){
+      screenScale = [1, 1, 1];
+      screenPosition = [-3, -6, -20];
+    }
+    else if(canvasSize.width < 700){
+      screenScale = [1, 1, 1];
+      screenPosition = [-3, -6, -20];
+    }
+    else if (canvasSize.width < 1200) {
+      screenScale = [1, 1, 1];
+      screenPosition = [-3, -6, -20];
+    } else {
+      screenScale = [1, 1, 1];
+      screenPosition = [-3, -6, -20];
+    }
+
+    return [screenScale, screenPosition];
+  };
+
   const adjustSunForScreenSize = () => {
     let screenScale, screenPosition;
 
     if(canvasSize.width < 440){
-      screenScale = [0.1, 0.1, 0.1];
+      screenScale = [0.05, 0.05, 0.05];
       screenPosition = [-6, 6, -20];
     }
     else if(canvasSize.width < 700){
-      screenScale = [0.1, 0.1, 0.1];
+      screenScale = [0.05, 0.05, 0.05];
       screenPosition = [-8, 6, -20];
     }
     else if (canvasSize.width < 1200) {
-      screenScale = [0.1, 0.1, 0.1];
-      screenPosition = [-20, 6, -20];
+      screenScale = [0.05, 0.05, 0.05];
+      screenPosition = [-15, 6, -20];
     } else {
-      screenScale = [0.2, 0.2, 0.2];
-      screenPosition = [-30, 6, -20];
+      screenScale = [0.1, 0.1, 0.1];
+      screenPosition = [-25, 6, -20];
     }
 
     return [screenScale, screenPosition];
@@ -137,24 +158,18 @@ const Home = () => {
     let screenScale, screenPosition;
     if(canvasSize.width < 400){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [0, -2, -4];
-      textwidthsize = 4
-      textfontsize = 0.5
+      screenPosition = [15, -25, -50];
     }
     else if(canvasSize.width < 700){
       screenScale = [0.6, 0.7, 0.7];
-      screenPosition = [0, -2, -4];
-      textwidthsize = 10
-      textfontsize = 0.6
+      screenPosition = [20, -25, -50];
     }
     else if (canvasSize.width < 1200) {
       screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [0, 0, 0];
-      textwidthsize = 10
-      textfontsize = 1;
+      screenPosition = [30, -25, -50];
     } else {
       screenScale = [1, 1, 1];
-      screenPosition = [0, 0, 0];
+      screenPosition = [60, -30, -50];
     }
 
     return [screenScale, screenPosition];
@@ -175,24 +190,25 @@ const Home = () => {
   const [biStylizedPlanetScale, biStylizedPlanetPosition] = adjustStylizedPlanetForScreenSize();
   const [biSunScale, biSunPosition] = adjustSunForScreenSize();
   const [biSpaceScale, biSpacePosition] = adjustSpaceForScreenSize();
+  const [biMercuryScale, biMercuryPosition] = adjustMercuryForScreenSize();
 
   return (
     <section className="home">
       {popupCard == "Contact Me" && <Contact />}
+      <div className="topintro">
+        <div className="intro">Jeevan Alexen's Portfolio</div>
+        {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
+      </div>
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
-
-          {/* <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group> */}
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
           <Space position={biSpacePosition}/>
           <Meteor scale={[0.3, 0.3, 0.3]}/>
+          <Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
-          <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
-            Jeevan Alexen Kavalam
-          </Text>
           </Suspense>
       </Canvas>
       <div className="navigation-buttons">

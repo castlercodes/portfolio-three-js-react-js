@@ -11,11 +11,10 @@
     height: 100px;
   }
 .loader{
-    position: absolute;
     font-size: 40px;
     color: white;
-    left: 20%;
-    top: 30%;
-    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 

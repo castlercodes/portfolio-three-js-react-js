@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
+
 .home{
     position: relative;
     background-color: black;
@@ -5,6 +7,23 @@
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.topintro{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: white;
+    font-family: 'Ephesis';
+    font-weight: bold;
+}
+
+.introdesc{
+    font-size: 1.1rem;
+}
+
+.intro{
+    font-size: 2rem;
 }
 
 canvas{
