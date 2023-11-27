@@ -10,6 +10,7 @@ import { Text } from "@react-three/drei";
 import { Space_Ship } from "../models/Space_Ship.jsx";
 import { Meteor } from "../models/Meteor.jsx";
 import PopupCard from "../Components/PopupCard.jsx";
+import Contact from "../Components/Contact.jsx";
 
 const Home = () => {
   let textwidthsize = 20
@@ -84,6 +85,10 @@ const Home = () => {
     }
   };
 
+  const resetPosition = () => {
+    setPosition({ x: 0, y: 0, z: 0 });
+  };
+
   const adjustStylizedPlanetForScreenSize = () => {
     let screenScale, screenPosition;
 
@@ -146,7 +151,7 @@ const Home = () => {
 
   return (
     <section className="home">
-      {popupCard == "Contact Me" && <PopupCard text={"Contact Me"} />}
+      {popupCard == "Contact Me" && <Contact />}
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <directionalLight position={[1, 1, 1]} intensity={2} />
         <ambientLight intensity={10} />
@@ -161,12 +166,15 @@ const Home = () => {
         </Text>
       </Canvas>
       <div className="navigation-buttons">
-        <button onClick={() => handleNavigation("up")}>Up</button>
-        <button onClick={() => handleNavigation("down")}>Down</button>
-        <button onClick={() => handleNavigation("left")}>Left</button>
-        <button onClick={() => handleNavigation("right")}>Right</button>
-        <button onClick={() => handleNavigation("forward")}>Forward</button>
-        <button onClick={() => handleNavigation("backward")}>Backward</button>
+        <button className="button" onClick={() => handleNavigation("up")}>Up</button>
+        <div className="horizontal-buttons">
+          <button className="button leftright" onClick={() => handleNavigation("left")}>Left</button>
+          <button className="button forbac" onClick={() => handleNavigation("forward")}>Forward</button>
+          <button className="button reset-button" onClick={resetPosition}>Reset</button>
+          <button className="button leftright" onClick={() => handleNavigation("backward")}>Backward</button>
+          <button className="button forbac" onClick={() => handleNavigation("right")}>Right</button>
+        </div>
+        <button className="button" onClick={() => handleNavigation("down")}>Down</button>
       </div>
     </section>
   );
