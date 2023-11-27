@@ -7,7 +7,6 @@ import { Raycaster } from "three";
 import spacesound1 from "../assets/music/a-space-journey-through-the-solar-system-153272.mp3"
 import { Navigation } from "../models/Navigation.jsx";
 import { Text } from "@react-three/drei";
-import { Meteor } from "../models/Meteor.jsx";
 import Contact from "../Components/Contact.jsx";
 import Loader from "../Components/Loader.jsx";
 
@@ -158,8 +157,6 @@ const Home = () => {
 
           <group onClick={handleClickSpace}><Space position={biSpacePosition} scale={biSpaceScale}/> </group>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
-          {/* <Space_Ship scale={[0.2, 0.2, 0.2]}/> */}
-          <Meteor scale={[0.2, 0.2, 0.2]}/>
           <Navigation x={position.x} y={position.y} z={position.z}/>
           <Text position={[0, 0, -2]} fontSize={textfontsize} color="#ffffff" maxWidth={textwidthsize} textAlign="center">
             Jeevan Alexen Kavalam
