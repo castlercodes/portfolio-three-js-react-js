@@ -13,6 +13,7 @@ import Loader from "../Components/Loader.jsx";
 import { Sun } from "../models/Sun.jsx";
 import { Meteor } from "../models/Meteor.jsx";
 import { Mercury } from "../models/Mercury.jsx";
+import { MeteorShower } from "../models/MeteorShower.jsx";
 
 const Home = () => {
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -213,13 +214,15 @@ const Home = () => {
         </div>
       </div>
       }
-      <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
+      <Canvas camera={{ near: 0, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
+          <Space position={[-4, -2, 0]}/>
           {/* <Space position={biSpacePosition}/> */}
           <Meteor scale={[0.3, 0.3, 0.3]}/>
+          {/* <MeteorShower scale={[0.3, 0.3, 0.3]} /> */}
           <group onClick={handleClickMercury}><Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/></group>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
