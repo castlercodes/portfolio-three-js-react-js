@@ -7,7 +7,7 @@ import { Stylized_Planet } from "../models/Stylized_Planet.jsx";
 import { Raycaster } from "three";
 import spacesound1 from "../assets/music/a-space-journey-through-the-solar-system-153272.mp3"
 import { Navigation } from "../models/Navigation.jsx";
-import { Text } from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 import Contact from "../Components/Contact.jsx";
 import Loader from "../Components/Loader.jsx";
 import { Sun } from "../models/Sun.jsx";
@@ -24,6 +24,7 @@ const Home = () => {
   const [popupCard, setPopupCard] = useState("");
   const [navigateButtons, setNavigateButtons] = useState(false);
   const spacesound1Ref = useRef(new Audio(spacesound1));
+  const [introText, setIntroText] = useState("");
   spacesound1Ref.current.volume = 0.6;
   spacesound1Ref.current.loop = true;
 
@@ -44,6 +45,7 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
 
   useEffect(() => {
     // Check if the user's position is close to the planet's position
@@ -197,6 +199,37 @@ const Home = () => {
     return [screenScale, screenPosition];
   };
 
+  useEffect(() => {
+    const introduction = () => {
+      setTimeout(() => {
+        setIntroText("Click on the Planets to know more about Me");
+      }, 1000);
+      
+      setTimeout(() => {
+        setIntroText("")
+        setPosition({x : biMercuryPosition[0], y : biMercuryPosition[1], z : biMercuryPosition[2]})
+      }, 4000);
+
+      setTimeout(() => {
+        setIntroText("")
+        setPosition({x : biSunPosition[0], y : biSunPosition[1], z : biSunPosition[2]})
+      }, 6000);
+
+      setTimeout(() => {
+        setIntroText("")
+        setPosition({x : biStylizedPlanetPosition[0], y : biStylizedPlanetPosition[1], z : biStylizedPlanetPosition[2]})
+      }, 8000);
+
+      setTimeout(() => {
+        setIntroText("");
+        setPosition({x:0, y:0, z:0});
+      }, 10000);
+    };
+  
+    // Call the introduction function
+    introduction();
+  }, []);
+
   const handleClickStylizedPlanet = (e) => {
     setPosition({x : biStylizedPlanetPosition[0], y : biStylizedPlanetPosition[1], z : biStylizedPlanetPosition[2]})
   }
@@ -229,12 +262,12 @@ const Home = () => {
           {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
         </div>
         <div className="pagedesc">
-          <div>Find More About ME by clicking on the planets</div>
+          {/* <div>Find More About ME by clicking on the planets</div> */}
         </div>
       </div>
       }
       <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader />} >
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
           <group onClick={handleClickSun}><Sun position={biSunPosition} scale={biSunScale}/></group>
@@ -245,6 +278,22 @@ const Home = () => {
           <group onClick={handleClickMercury}><Mercury scale={[0.01, 0.01, 0.01]} position={biMercuryPosition}/></group>
           <group onClick={handleClickStylizedPlanet}><Stylized_Planet position={biStylizedPlanetPosition} scale={biStylizedPlanetScale} /></group>
           <Navigation x={position.x} y={position.y} z={position.z}/>
+          {introText && 
+          <Html center>
+            <div
+              style={{
+                background: "white", // White background with fade effect
+                color: "black", // Black text color
+                padding: "10px",
+                borderRadius: "5px",
+                width: "200px",
+                fontSize: "20px",
+              }}
+            >
+              {introText}
+            </div>
+          </Html>
+          }
           </Suspense>
       </Canvas>
       {navigateButtons == false

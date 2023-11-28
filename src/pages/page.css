@@ -24,7 +24,7 @@
 }
 
 .intro{
-    font-size: 6rem;
+    font-size: 3.5rem;
 }
 
 .pagedesc{
@@ -41,13 +41,13 @@
 
 @media (max-width: 700px) {
     .intro {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 }
 
 @media (max-width: 500px) {
     .intro {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
     .pagedesc{
         top: 35%;
@@ -56,7 +56,7 @@
 
 @media (max-width: 400px) {
     .intro {
-        font-size: 4rem;
+        font-size: 2rem;
     }
 
     .pagedesc{
