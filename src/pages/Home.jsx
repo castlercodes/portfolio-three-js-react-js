@@ -14,6 +14,7 @@ import { Sun } from "../models/Sun.jsx";
 import { Meteor } from "../models/Meteor.jsx";
 import { Mercury } from "../models/Mercury.jsx";
 import { MeteorShower } from "../models/MeteorShower.jsx";
+import PopupCard from "../Components/PopupCard.jsx";
 
 const Home = () => {
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -46,14 +47,32 @@ const Home = () => {
 
   useEffect(() => {
     // Check if the user's position is close to the planet's position
-    const isNearPlanet = (
+    const isNearStylizedPlanet = (
       Math.abs(position.x - biStylizedPlanetPosition[0]) <= 1 &&
       Math.abs(position.y - biStylizedPlanetPosition[1]) <= 1 &&
       Math.abs(position.z - biStylizedPlanetPosition[2]) <= 5
     );
 
-    if (isNearPlanet) {
+    const isNearMercury = (
+      Math.abs(position.x - biMercuryPosition[0]) <= 1 &&
+      Math.abs(position.y - biMercuryPosition[1]) <= 1 &&
+      Math.abs(position.z - biMercuryPosition[2]) <= 5
+    );
+
+    const isNearSun = (
+      Math.abs(position.x - biSunPosition[0]) <= 1 &&
+      Math.abs(position.y - biSunPosition[1]) <= 1 &&
+      Math.abs(position.z - biSunPosition[2]) <= 5
+    );
+
+    if (isNearStylizedPlanet) {
       setPopupCard("Contact Me")
+    }
+    else if(isNearMercury){
+      setPopupCard("Projects");
+    }
+    else if(isNearSun){
+      setPopupCard("About Me");
     }
     else{
       setPopupCard("")
@@ -201,7 +220,7 @@ const Home = () => {
 
   return (
     <section className="home">
-      {popupCard == "Contact Me" && <Contact />}
+      {popupCard != "" && <PopupCard text={popupCard}/>}
       {popupCard == "" 
       && 
       <div>
@@ -214,7 +233,7 @@ const Home = () => {
         </div>
       </div>
       }
-      <Canvas camera={{ near: 0, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
+      <Canvas camera={{ near: 0.1, far: 1000 }} style={{ height: canvasSize.height, width: canvasSize.width }}>
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={10} />
