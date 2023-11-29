@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './pages/Home'
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import VirtualAvatar from './pages/VirtualAvatar';
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
             element={
               <>
                 <Routes>
-
+                  <Route path="/projects/virtualAvatar" element = {<VirtualAvatar />} />
                 </Routes>
               </>
             }
