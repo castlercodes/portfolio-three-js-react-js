@@ -305,7 +305,9 @@ const Home = () => {
       {navigateButtons == false
       &&
       <div className="navigatebutton hidenavigatebutton">
-        <div className="innernavigate"onClick={handleClick}>
+        <div className="innernavigate"onClick={() => {
+          setNavigateButtons(true)
+        }}>
           <FaChevronUp />
           <div className="navigatetext">Show Navigate Buttons</div>
         </div>
