@@ -58,7 +58,7 @@ const inputResolution = {
         <Webcam
             width={inputResolution.width}
             height={inputResolution.height}
-            style={{ visibility: "", position: "absolute" }}
+            style={{ visibility: "hidden", position: "absolute" }}
             videoConstraints={videoConstraints}
             onLoadedData={handleVideoLoad} //here we pass in the function
         />
