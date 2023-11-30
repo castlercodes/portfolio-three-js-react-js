@@ -18,6 +18,7 @@ const inputResolution = {
   function VirtualAvatar() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+    const [meshDrawn, setMeshDrawn] = useState(false);
     
     const runDetector = async (video, canvas) => {
         const model = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
@@ -34,7 +35,8 @@ const inputResolution = {
           const ctx = canvas.getContext("2d");
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-           drawMesh(faces, ctx);
+          setMeshDrawn(true)
+          drawMesh(faces, ctx);
 
         // Use requestAnimationFrame to continuously update the frames
             requestAnimationFrame(() => detect(detector));
@@ -55,6 +57,7 @@ const inputResolution = {
 
     return (
       <div>
+        {meshDrawn == false && <div style={{fontSize:"30px"}}> Processing Data please wait </div>}
         <Webcam
             width={inputResolution.width}
             height={inputResolution.height}
