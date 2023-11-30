@@ -9,16 +9,7 @@ const App = () => {
        <Router>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route
-            path='/*'
-            element={
-              <>
-                <Routes>
-                  <Route path="/projects/virtualAvatar" element = {<VirtualAvatar />} />
-                </Routes>
-              </>
-            }
-          />
+          <Route path="/projects/virtualAvatar" element = {<VirtualAvatar />} />
         </Routes>
       </Router>
     </main>
