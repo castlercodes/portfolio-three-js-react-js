@@ -15,6 +15,7 @@ import { Meteor } from "../models/Meteor.jsx";
 import { Mercury } from "../models/Mercury.jsx";
 import { MeteorShower } from "../models/MeteorShower.jsx";
 import PopupCard from "../Components/PopupCard.jsx";
+import {useNavigate} from "react-router-dom"
 
 const Home = () => {
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -27,6 +28,7 @@ const Home = () => {
   const [introText, setIntroText] = useState("");
   spacesound1Ref.current.volume = 0.6;
   spacesound1Ref.current.loop = true;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(isPlayingspacesound1){
@@ -227,7 +229,7 @@ const Home = () => {
     };
   
     // Call the introduction function
-    introduction();
+    // introduction();
   }, []);
 
   const handleClickStylizedPlanet = (e) => {
@@ -251,6 +253,10 @@ const Home = () => {
   const [biSpaceScale, biSpacePosition] = adjustSpaceForScreenSize();
   const [biMercuryScale, biMercuryPosition] = adjustMercuryForScreenSize();
 
+  const handleClick = () => {
+    navigate("/projects/virtualAvatar");
+  }
+
   return (
     <section className="home">
       {popupCard != "" && <PopupCard text={popupCard}/>}
@@ -259,7 +265,7 @@ const Home = () => {
       <div>
         <div className="topintro">
           <div className="intro">Jeevan Alexen's Portfolio</div>
-          {/* <div className="introdesc">Explore the Space and click on Planet's to explore various sections</div> */}
+          {/* <div className="introdesc" onClick={handleClick}>Click here to see virtual avatar</div> */}
         </div>
         <div className="pagedesc">
           {/* <div>Find More About ME by clicking on the planets</div> */}
@@ -299,9 +305,7 @@ const Home = () => {
       {navigateButtons == false
       &&
       <div className="navigatebutton hidenavigatebutton">
-        <div className="innernavigate"onClick={() => {
-          setNavigateButtons(true)
-        }}>
+        <div className="innernavigate"onClick={handleClick}>
           <FaChevronUp />
           <div className="navigatetext">Show Navigate Buttons</div>
         </div>

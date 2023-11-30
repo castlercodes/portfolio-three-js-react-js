@@ -10,6 +10,10 @@
     padding: 0;
 }
 
+.notpopcard{
+    z-index: 10;
+}
+
 .topintro{
     position: absolute;
     top: 10%;
