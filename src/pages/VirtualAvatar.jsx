@@ -6,7 +6,7 @@ import { drawMesh } from "../Components/utilities";
 
 const inputResolution = {
     width: 1080,
-    height: 900,
+    height: 980,
   };
   
   const videoConstraints = {
@@ -58,7 +58,7 @@ const inputResolution = {
         <Webcam
             width={inputResolution.width}
             height={inputResolution.height}
-            style={{ visibility: "", position: "absolute" }}
+            style={{ visibility: "", position: "absolute", width: "100%", height: "100%"}}
             videoConstraints={videoConstraints}
             onLoadedData={handleVideoLoad} //here we pass in the function
         />
@@ -66,7 +66,7 @@ const inputResolution = {
           ref={canvasRef}
           width={inputResolution.width}
           height={inputResolution.height}
-          style={{ position: "absolute" }}
+          style={{ position: "absolute"}}
         />
       </div>
     );
